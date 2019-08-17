@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.tecdainfor.dao.ComputadorDAO;
 import br.com.tecdainfor.model.Computador;
+import br.com.tecdainfor.model.ResponseModel;
 
 
 @CrossOrigin(origins  = "http://localhost:4200")
@@ -30,6 +31,7 @@ public class ComputadorController {
 	//Recebimento e tratamento dos dados via HTTP.
 	
 	
+	
 	@RequestMapping(value = "/listar", method= RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public @ResponseBody List<Computador> ConsultarTodos(){
 		List<Computador> lista = this.computadordao.listarComputadores();
@@ -42,33 +44,65 @@ public class ComputadorController {
 	}*/
 	
 		
-	@RequestMapping(value = "/cadastrar", method = RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_UTF8_VALUE,produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public @ResponseBody  Computador salvar(@RequestBody Computador computador) {
-		return this.computadordao.cadastrarComputador(computador);				
-	}
 	
-	@RequestMapping(value = "/editar", method = RequestMethod.PUT, consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public @ResponseBody Computador editar(@RequestBody Computador computador){
-		computadordao.alterarComputador(computador);
-		return computador;
+	@RequestMapping(value="/cadastrar", method = RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_UTF8_VALUE,produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public @ResponseBody ResponseModel salvar(@RequestBody Computador computador){
+ 
+ 
+		try {
+ 
+			this.computadordao.cadastrarComputador(computador);
+ 
+			return new ResponseModel(1,"Registro salvo com sucesso!");
+ 
+		}catch(Exception e) {
+ 
+			return new ResponseModel(0,e.getMessage());			
+		}
 	}
+ 
 	
-	@RequestMapping (value = "/listarporsetor/{setor}", method= RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public @ResponseBody List<Computador> listaCompSetor(@PathVariable String setor){
-		List<Computador> computador = computadordao.listaCompSetor(setor);
-		return computador;
-		
-
+	@RequestMapping(value="/atualizar", method = RequestMethod.PUT, consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public @ResponseBody ResponseModel atualizar(@RequestBody Computador computador){
+ 
+		try {
+ 
+			this.computadordao.alterarComputador(computador);	
+ 
+			return new ResponseModel(1,"Registro atualizado com sucesso!");
+ 
+		}catch(Exception e) {
+ 
+			return new ResponseModel(0,e.getMessage());
+		}
 	}
+ 
 	
-	@RequestMapping (value = "/consultar/{id}",method= RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public @ResponseBody Computador consultarComputador(@PathVariable int id) {
-		return this.computadordao.consultarComputador(id);
+	@RequestMapping(value="/consultar/{codigo}", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public @ResponseBody Computador buscar(@PathVariable("codigo") Integer codigo){
+ 
+		return this.computadordao.consultarComputador(codigo);
 	}
-	
-	@RequestMapping (value = "/excluir/{id}",method = RequestMethod.DELETE,produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public @ResponseBody Computador excluir(@PathVariable int id){
-		return this.computadordao.excluir(id);
+ 
+	/***
+	 * EXCLUIR UM REGISTRO PELO CÓDIGO
+	 * @param codigo
+	 * @return
+	 */
+	@RequestMapping(value="/excluir/{codigo}", method = RequestMethod.DELETE, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public @ResponseBody ResponseModel excluir(@PathVariable("codigo") Integer codigo){
+ 
+		Computador computador = computadordao.consultarComputador(codigo);
+ 
+		try {
+ 
+			computadordao.excluir(codigo);
+ 
+			return new ResponseModel(1, "Registro excluido com sucesso!");
+ 
+		}catch(Exception e) {
+			return new ResponseModel(0, e.getMessage());
+		}
 	}
 
 }
