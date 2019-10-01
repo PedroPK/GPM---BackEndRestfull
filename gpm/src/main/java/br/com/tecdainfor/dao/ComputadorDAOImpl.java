@@ -74,7 +74,7 @@ public class ComputadorDAOImpl implements ComputadorDAO{
 	@Override
 	@javax.transaction.Transactional
 	public List<Computador> listarComputadores(){
-		List<Computador> lista = manager.createQuery("SELECT u FROM Computador u ORDER BY u.nome", Computador.class).getResultList();
+		List<Computador> lista = manager.createQuery("SELECT u FROM Computador u ORDER BY u.id", Computador.class).getResultList();
 	
 		return lista;
 	}

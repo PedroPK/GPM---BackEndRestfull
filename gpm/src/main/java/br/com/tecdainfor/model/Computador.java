@@ -44,6 +44,7 @@ public class Computador implements Serializable  {
 	
 	
 	 @JsonBackReference
+	@JoinColumn(name ="id_setor_pk")
 	@ManyToOne(targetEntity = Setor.class)
 	 private Setor setor;
 	

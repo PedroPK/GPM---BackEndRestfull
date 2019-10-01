@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,11 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import br.com.tecdainfor.dao.ComputadorDAO;
+import br.com.tecdainfor.dao.SetorDAO;
 import br.com.tecdainfor.model.Computador;
 import br.com.tecdainfor.model.ResponseModel;
+import br.com.tecdainfor.model.Setor;
 
 
-@CrossOrigin(origins  = "http://localhost:4200")
+@CrossOrigin
 @RestController
 @RequestMapping("/computador")
 public class ComputadorController {
@@ -38,19 +41,20 @@ public class ComputadorController {
 				return 	lista;
 	}
 	
-	/*@RequestMapping(value = "/listasetor", method= RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "/listarSetores", method= RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public @ResponseBody List<Setor> ListaSetor(){
 		return 	this.computadordao.listaSetor();
-	}*/
+	}
 	
 		
 	
 	@RequestMapping(value="/cadastrar", method = RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_UTF8_VALUE,produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public @ResponseBody ResponseModel salvar(@RequestBody Computador computador){
- 
+        
+	       
  
 		try {
- 
+            
 			this.computadordao.cadastrarComputador(computador);
  
 			return new ResponseModel(1,"Registro salvo com sucesso!");
@@ -77,11 +81,10 @@ public class ComputadorController {
 		}
 	}
  
-	
-	@RequestMapping(value="/consultar/{codigo}", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public @ResponseBody Computador buscar(@PathVariable("codigo") Integer codigo){
+	@RequestMapping(value="/consultar/{id}", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public @ResponseBody Computador buscar(@PathVariable("id") Integer id){
  
-		return this.computadordao.consultarComputador(codigo);
+		return this.computadordao.consultarComputador(id);
 	}
  
 	/***

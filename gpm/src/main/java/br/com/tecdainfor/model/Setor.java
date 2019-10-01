@@ -50,19 +50,19 @@ public class Setor implements Serializable {
 	@JsonManagedReference
 	@OneToMany(mappedBy = "setor", targetEntity = Monitor.class, 
 	fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@Column(name = "listademonitores", nullable = false)
+	@Column(name = "listademonitores", nullable = true)
 	private Collection<Monitor> monitores;
 	
 	@JsonManagedReference
 	@OneToMany(mappedBy = "setor", targetEntity = Computador.class, 
 	fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@Column(name = "listadecomputadores", nullable = false)
+	@Column(name = "listadecomputadores", nullable = true)
 	private Collection<Computador> computadores;
 	
 	@JsonManagedReference
 	@OneToMany(mappedBy = "setor", targetEntity = Impressora.class, 
 	fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@Column(name = "listadeimpressoras", nullable = false)
+	@Column(name = "listadeimpressoras", nullable = true)
 	private Collection<Impressora> impressoras;
 	
 	
