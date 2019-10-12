@@ -29,23 +29,25 @@ public class Usuario  implements Serializable {
 	private int id;
 	@Column(name = "st_nome")
 	private String nome;
-	@Column(name = "st_email", unique = true)
+	@Column(name = "st_email")
 	private String email;
 	@Column(name = "st_senha")
 	private String senha;
-	@Column(name = "st_telefone", unique = true)
+	@Column(name = "st_telefone")
 	private String telefone;
-	@Column(name = "st_perfil")
-	private String perfil;
+	@Column(name = "st_cargo")
+	private String cargo;
+	@Column(name = "st_matricula")
+	private int matricula;
+	
 	
 
 
 	
-	//Relacionamento implementado
+	
 	
     
-	@ManyToMany(mappedBy="listadeusuarios")
-	private Collection<Setor> listadesetores;
+	
 
 	
 	
@@ -53,12 +55,7 @@ public class Usuario  implements Serializable {
 	//Gets e Sets da classe usuário.
 	
 
-	public Collection<Setor> getListadesetores() {
-		return listadesetores;
-	}
-	public void setListadesetores(Collection<Setor> listadesetores) {
-		this.listadesetores = listadesetores;
-	}
+	
 	
 	
 	public int getId() {
@@ -92,11 +89,18 @@ public class Usuario  implements Serializable {
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
-	public String getPerfil() {
-		return perfil;
+	
+	public String getCargo() {
+		return cargo;
 	}
-	public void setPerfil(String perfil) {
-		this.perfil = perfil;
+	public void setCargo(String cargo) {
+		this.cargo = cargo;
+	}
+	public int getMatricula() {
+		return matricula;
+	}
+	public void setMatricula(int matricula) {
+		this.matricula = matricula;
 	}
 
 

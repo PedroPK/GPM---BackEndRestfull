@@ -43,6 +43,13 @@ public class ComputadorDAOImpl implements ComputadorDAO{
 		return manager.find(Computador.class, id);
 	}
 	
+
+	@Override
+	@javax.transaction.Transactional
+	public Setor consultarSetor(int id){
+		return manager.find(Setor.class, id);
+	}
+	
 	
 	@Override
 	@javax.transaction.Transactional

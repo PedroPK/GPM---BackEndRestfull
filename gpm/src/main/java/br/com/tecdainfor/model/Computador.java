@@ -38,9 +38,8 @@ public class Computador implements Serializable  {
 	private String tipo;
 	@Column(name = "st_ip")
 	private String ip;
-//	@Column(name = "st_date")
-//	@DateTimeFormat(pattern = "yyyy-MM-dd")
-//	private Date dataCriacao;
+	private int idrefsetor;
+
 	
 	
 	 @JsonBackReference
@@ -110,5 +109,14 @@ public class Computador implements Serializable  {
 	public void setIp(String ip) {
 		this.ip = ip;
 	}
+
+	public int getIdrefsetor() {
+		return idrefsetor;
+	}
+
+	public void setIdrefsetor(int idrefsetor) {
+		this.idrefsetor = idrefsetor;
+	}
+	
 	
 }

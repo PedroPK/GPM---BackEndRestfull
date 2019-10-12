@@ -31,6 +31,7 @@ public class ComputadorController {
 	@Autowired
 	ComputadorDAO computadordao;
 	
+	
 	//Recebimento e tratamento dos dados via HTTP.
 	
 	
@@ -48,14 +49,21 @@ public class ComputadorController {
 	
 		
 	
+	
 	@RequestMapping(value="/cadastrar", method = RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_UTF8_VALUE,produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public @ResponseBody ResponseModel salvar(@RequestBody Computador computador){
+	public @ResponseBody ResponseModel salvar(@RequestBody Computador computador1){
         
+	       int idsetor = computador1.getIdrefsetor();
+	       Setor setor = new Setor();
+	       setor = computadordao.consultarSetor(idsetor);
+	       Computador computador2 = new Computador();
+	       computador2 = computador1;
+	       computador2.setSetor(setor);
 	       
  
 		try {
             
-			this.computadordao.cadastrarComputador(computador);
+			this.computadordao.cadastrarComputador(computador2);
  
 			return new ResponseModel(1,"Registro salvo com sucesso!");
  
@@ -67,11 +75,19 @@ public class ComputadorController {
  
 	
 	@RequestMapping(value="/atualizar", method = RequestMethod.PUT, consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public @ResponseBody ResponseModel atualizar(@RequestBody Computador computador){
+	public @ResponseBody ResponseModel atualizar(@RequestBody Computador computador1){
  
+		   int idsetor = computador1.getIdrefsetor();
+	       Setor setor = new Setor();
+	       setor = computadordao.consultarSetor(idsetor);
+	       Computador computador2 = new Computador();
+	       computador2 = computador1;
+	       computador2.setSetor(setor);
+		
+		
 		try {
  
-			this.computadordao.alterarComputador(computador);	
+			this.computadordao.alterarComputador(computador2);	
  
 			return new ResponseModel(1,"Registro atualizado com sucesso!");
  

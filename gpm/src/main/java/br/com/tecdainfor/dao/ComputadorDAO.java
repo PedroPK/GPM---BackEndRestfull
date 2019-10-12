@@ -24,6 +24,8 @@ public interface ComputadorDAO {
 
 	List<Setor> listaSetor();
 
+	Setor consultarSetor(int id);
+
  //	Setor pesquisaSetorPorIdComputador(int id);
 
 	
