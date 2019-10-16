@@ -10,8 +10,6 @@ public interface UsuarioDAO{
 	
 	public Usuario cadastrarUsuario(Usuario usuario);
 	
-	public Usuario loginUsuario(Usuario usuario);
-	
 	public void esqueciSenhaUsuario(Usuario usuario);
 	
 	public void alterarSenhaUsuario(Usuario usuario);
@@ -26,7 +24,7 @@ public interface UsuarioDAO{
 	
 	public List<Usuario> listarUsuarios();
 	
-	public List<Usuario> consultaPagina(String numeroPagina);
+	public Usuario autenticarUsuario(int matricula, String senha);
 	
 	
 

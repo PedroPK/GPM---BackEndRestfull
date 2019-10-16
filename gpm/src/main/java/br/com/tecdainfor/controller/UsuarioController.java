@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import br.com.tecdainfor.dao.UsuarioDAO;
@@ -24,6 +25,8 @@ public class UsuarioController {
 	
 	@Autowired
 	UsuarioDAO usuariodao;
+	private int matricula;
+	private String senha;
 	
 	
 	
@@ -61,5 +64,14 @@ public class UsuarioController {
  
 		return this.usuariodao.consultarUsuarioCodigo(id);
 	}
+	
+	@RequestMapping(value="/autenticarUsuario", method = RequestMethod.PUT, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public @ResponseBody Usuario buscar(@RequestBody Usuario usuario){
+      matricula = usuario.getMatricula();
+      senha = usuario.getSenha();
+      
+		return this.usuariodao.autenticarUsuario(matricula,senha);
+	}
+
 
 }
