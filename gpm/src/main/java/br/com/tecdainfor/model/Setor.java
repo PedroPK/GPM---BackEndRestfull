@@ -15,17 +15,19 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "TB_Setor")
 public class Setor implements Serializable {
-	
+
 	// Atributos da classe setor
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_setor_pk", nullable = false)
@@ -34,44 +36,37 @@ public class Setor implements Serializable {
 	private String nome;
 	@Column(name = "descricao_setor", nullable = false)
 	private String descricao;
-	
-	
+	@Column(name = "st_ramal")
+	private int ramal;
+
+	@JsonBackReference
+	@JoinColumn(name = "id_usuario_pk")
+	@ManyToOne(targetEntity = Usuario.class)
+	private Usuario chefedosetor;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name="usuariosporsetor", joinColumns=
-	{@JoinColumn(name="id_setor_pk"),
-	}, inverseJoinColumns=
-	  {@JoinColumn(name="id_usuario_pk")})
+	@JoinTable(name = "usuariosporsetor", joinColumns = { @JoinColumn(name = "id_setor_pk"), }, inverseJoinColumns = {
+			@JoinColumn(name = "id_usuario_pk") })
 	@Column(name = "listadeusuarios", nullable = false)
 	private Collection<Usuario> listadeusuarios;
-	
-	
 
 	@JsonManagedReference
-	@OneToMany(mappedBy = "setor", targetEntity = Monitor.class, 
-	fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "setor", targetEntity = Monitor.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@Column(name = "listademonitores", nullable = true)
 	private Collection<Monitor> monitores;
-	
+
 	@JsonManagedReference
-	@OneToMany(mappedBy = "setor", targetEntity = Computador.class, 
-	fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "setor", targetEntity = Computador.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@Column(name = "listadecomputadores", nullable = true)
 	private Collection<Computador> computadores;
-	
+
 	@JsonManagedReference
-	@OneToMany(mappedBy = "setor", targetEntity = Impressora.class, 
-	fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "setor", targetEntity = Impressora.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@Column(name = "listadeimpressoras", nullable = true)
 	private Collection<Impressora> impressoras;
-	
-	
-	
-	
-	//Gets and Sets da classe setor
-	
-	
-	
+
+	// Gets and Sets da classe setor
+
 	public Collection<Usuario> getListadeusuarios() {
 		return listadeusuarios;
 	}
@@ -103,32 +98,46 @@ public class Setor implements Serializable {
 	public void setListadeusuarios(Collection<Usuario> listadeusuarios) {
 		this.listadeusuarios = listadeusuarios;
 	}
+	
+
+	public Usuario getChefedosetor() {
+		return chefedosetor;
+	}
+
+	public void setChefedosetor(Usuario chefedosetor) {
+		this.chefedosetor = chefedosetor;
+	}
 
 	public int getId() {
 		return id;
 	}
-	
-	
 
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 	public String getDescricao() {
 		return descricao;
 	}
+
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
+
 	public String getNome() {
 		return nome;
 	}
+
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
-	
+
+	public int getRamal() {
+		return ramal;
+	}
+
+	public void setRamal(int ramal) {
+		this.ramal = ramal;
+	}
 
 }
-
-

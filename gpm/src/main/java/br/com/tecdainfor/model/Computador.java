@@ -32,10 +32,6 @@ public class Computador implements Serializable  {
 	private String modelo;
 	@Column(name = "st_gap_tomb")
 	private String gap_tomb;
-	@Column(name = "st_ramal")
-	private int ramal;
-    @Column(name = "st_tipo")
-	private String tipo;
 	@Column(name = "st_ip")
 	private String ip;
 	private int idrefsetor;
@@ -89,20 +85,7 @@ public class Computador implements Serializable  {
 	public void setGap_tomb(String gap_tomb) {
 		this.gap_tomb = gap_tomb;
 	}
-	public int getRamal() {
-		return ramal;
-	}
-	public void setRamal(int ramal) {
-		this.ramal = ramal;
-	}
-
 	
-	public String getTipo() {
-		return tipo;
-	}
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
 	public String getIp() {
 		return ip;
 	}
