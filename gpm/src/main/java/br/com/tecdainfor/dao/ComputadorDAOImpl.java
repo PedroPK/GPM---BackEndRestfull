@@ -33,7 +33,7 @@ public class ComputadorDAOImpl implements ComputadorDAO{
 	@javax.transaction.Transactional
 	public Computador alterarComputador(Computador computador){
 		return manager.merge(computador);
-				
+				 
 	}
 	
 	
@@ -42,7 +42,7 @@ public class ComputadorDAOImpl implements ComputadorDAO{
 	public Computador consultarComputador(int id){
 		return manager.find(Computador.class, id);
 	}
-	
+	 
 
 	@Override
 	@javax.transaction.Transactional

@@ -38,6 +38,7 @@ public class Setor implements Serializable {
 	private String descricao;
 	@Column(name = "st_ramal")
 	private int ramal;
+	private int chefeSetorIdRef;
 
 	@JsonBackReference
 	@JoinColumn(name = "id_usuario_pk")
@@ -140,4 +141,13 @@ public class Setor implements Serializable {
 		this.ramal = ramal;
 	}
 
+	public int getChefeSetorIdRef() {
+		return chefeSetorIdRef;
+	}
+
+	public void setChefeSetorIdRef(int chefeSetorIdRef) {
+		this.chefeSetorIdRef = chefeSetorIdRef;
+	}
+
+	
 }

@@ -23,9 +23,9 @@ public class ImpressoraController {
 	
 	
 
-	@Autowired
+	/*
 	SetorDAO setordao;
-	@Autowired
+
 	ImpressoraDAO impressoradao;
 	
 	
@@ -63,5 +63,5 @@ public class ImpressoraController {
 	public @ResponseBody Impressora excluir(@PathVariable int id){
 		return this.impressoradao.excluir(id);
 	}
-	
+	*/
 }

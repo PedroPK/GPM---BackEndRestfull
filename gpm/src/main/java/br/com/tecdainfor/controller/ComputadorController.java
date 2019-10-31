@@ -1,10 +1,13 @@
 package br.com.tecdainfor.controller;
 
 import java.util.List;
-
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.tecdainfor.dao.ComputadorDAO;
 import br.com.tecdainfor.dao.SetorDAO;
+
 import br.com.tecdainfor.model.Computador;
 import br.com.tecdainfor.model.ResponseModel;
 import br.com.tecdainfor.model.Setor;
@@ -33,6 +37,22 @@ public class ComputadorController {
 	
 	
 	//Recebimento e tratamento dos dados via HTTP.
+	
+	
+
+
+	/**Paginação**/
+	/*
+	@RequestMapping(method = RequestMethod.GET, produces= MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> list(Pageable pageable){
+		return new ResponseEntity<>(repository.findAll(pageable), HttpStatus.OK);
+	}
+	
+	@RequestMapping(value= "/all", method= RequestMethod.GET, produces= MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> listAll(){
+		return new ResponseEntity<>(repository.findAll(), HttpStatus.OK);
+	}*/
+
 	
 	
 	

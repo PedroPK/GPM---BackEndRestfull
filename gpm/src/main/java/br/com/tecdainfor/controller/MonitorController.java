@@ -22,9 +22,9 @@ import br.com.tecdainfor.model.Setor;
 @RequestMapping("/monitor")
 public class MonitorController {
 
-	@Autowired
-	SetorDAO setordao;
-	@Autowired
+	
+/*	SetorDAO setordao;
+	
 	MonitorDAO monitordao;
 	
 
@@ -62,5 +62,5 @@ public class MonitorController {
 		return this.monitordao.excluir(id);
 	}
 
-	
+	*/
 }

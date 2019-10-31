@@ -1,6 +1,7 @@
 package br.com.tecdainfor.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -16,10 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import br.com.tecdainfor.dao.SetorDAO;
+import br.com.tecdainfor.dao.UsuarioDAO;
 import br.com.tecdainfor.model.Computador;
+import br.com.tecdainfor.model.ResponseModel;
 import br.com.tecdainfor.model.Setor;
-
-
+import br.com.tecdainfor.model.Usuario;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController

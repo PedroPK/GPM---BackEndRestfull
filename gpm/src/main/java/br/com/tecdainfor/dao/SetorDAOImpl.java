@@ -8,7 +8,7 @@ import javax.persistence.PersistenceContextType;
 
 import org.springframework.stereotype.Repository;
 
-import br.com.tecdainfor.model.Computador;
+
 import br.com.tecdainfor.model.Setor;
 import br.com.tecdainfor.model.Usuario;
 
@@ -53,6 +53,12 @@ public class SetorDAOImpl implements SetorDAO {
 	@javax.transaction.Transactional
 	public List<Setor> listarSetores() {
 		return manager.createQuery("SELECT u FROM Setor u ORDER BY u.nome", Setor.class).getResultList();
+	}
+
+	@Override
+	public Usuario consultarUsuario(int chefeSetorIdRef) {
+		
+		return manager.find(Usuario.class, chefeSetorIdRef);
 	}
 
 }
