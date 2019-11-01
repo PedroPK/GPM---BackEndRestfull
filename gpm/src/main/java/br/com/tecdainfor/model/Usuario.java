@@ -15,6 +15,8 @@ import javax.persistence.ManyToMany;
 
 import javax.persistence.Table;
 
+import org.springframework.stereotype.Component;
+
 // Classe Usuário.
 
 @Entity
