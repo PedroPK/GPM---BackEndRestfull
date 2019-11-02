@@ -42,22 +42,7 @@ public class Usuario  implements Serializable {
 	@Column(name = "st_matricula")
 	private int matricula;
 	
-	
-
-
-	
-	
-	
-    
-	
-
-	
-	
-	
 	//Gets e Sets da classe usuário.
-	
-
-	
 	
 	
 	public int getId() {

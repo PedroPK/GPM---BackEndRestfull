@@ -22,49 +22,103 @@ import br.com.tecdainfor.model.Computador;
 import br.com.tecdainfor.model.ResponseModel;
 import br.com.tecdainfor.model.Setor;
 import br.com.tecdainfor.model.Usuario;
+import br.com.tecdainfor.service.SetorService;
+import br.com.tecdainfor.service.UsuarioService;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin
 @RestController
 @RequestMapping("/setor")
 public class SetorController {
 	
 	
 	@Autowired
-	SetorDAO setordao;
+	private SetorService setorservice;
+	@Autowired
+	private UsuarioService usuarioservice;
 	
 	
 	
 	//Recebimento e tratamento dos dados via HTTP.
 	
     
-	@RequestMapping(value = "/listar", method= RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "/listar", method= RequestMethod.GET)
 	public @ResponseBody List<Setor> ConsultarTodos(){
-		return 	this.setordao.listarSetores();
+		return 	this.setorservice.listarSetores();
 	}
 	
 	
-	@RequestMapping(value = "/cadastrar", method = RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_UTF8_VALUE,produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public @ResponseBody Setor salvar(@RequestBody Setor setor) {
-		return this.setordao.cadastrarSetor(setor);				
+	@RequestMapping(value = "/cadastrar", method = RequestMethod.POST)
+	public @ResponseBody ResponseModel salvar(@RequestBody Setor setor1) {
+		      
+		   int iduser = setor1.getChefeSetorIdRef();
+	       Usuario user = new Usuario();
+	       user = usuarioservice.getOne(iduser);
+	       Setor setor2 = new Setor();
+	       setor2 = setor1;
+	       setor2.setChefedosetor(user);
+		
+
+		try {
+            
+			this.setorservice.cadastrarSetor(setor2);	
+ 
+			return new ResponseModel(1,"Registro salvo com sucesso!");
+ 
+		}catch(Exception e) {
+ 
+			return new ResponseModel(0,e.getMessage());			
+		}
 	}
+				
+	
 	
 	 
-	@RequestMapping(value = "/alterar", method = RequestMethod.PUT, consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public @ResponseBody Setor editar(@RequestBody Setor setor){
-		setordao.alterarSetor(setor);
-		return setor;
+	@RequestMapping(value = "/alterar", method = RequestMethod.PUT)
+	public @ResponseBody ResponseModel editar(@RequestBody Setor setor1){
+		
+		 int iduser = setor1.getChefeSetorIdRef();
+	       Usuario user = new Usuario();
+	       user = usuarioservice.getOne(iduser);
+	       Setor setor2 = new Setor();
+	       setor2 = setor1;
+	       setor2.setChefedosetor(user);
+		
+		
+		try {
+            
+			this.setorservice.alterarSetor(setor2);	
+ 
+			return new ResponseModel(1,"Registro alterado com sucesso!");
+ 
+		}catch(Exception e) {
+ 
+			return new ResponseModel(0,e.getMessage());			
+		}
 	}
+		
+		
 	
 	 
-	@RequestMapping (value = "/excluir/{id}", method = RequestMethod.DELETE,produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public @ResponseBody Setor excluir(@PathVariable int id){
-		return this.setordao.excluir(id);
+	@RequestMapping (value = "/excluir/{id}", method = RequestMethod.DELETE)
+	public @ResponseBody ResponseModel excluir(@PathVariable int id){
+		
+
+		try {
+            
+			this.setorservice.excluir(id);
+ 
+			return new ResponseModel(1,"Registro excluído com sucesso!");
+ 
+		}catch(Exception e) {
+ 
+			return new ResponseModel(0,e.getMessage());			
+		}
 	}
 
 
-   @RequestMapping(value="/consultar/{id}", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-   public @ResponseBody Setor buscar(@PathVariable("id") Integer id){
+   @RequestMapping(value="/consultar/{id}", method = RequestMethod.GET)
+   public @ResponseBody Setor buscar(@PathVariable("id") int id){
 
-	return this.setordao.consultarSetor(id);
+	return this.setorservice.consultarSetor(id);
 }
 }

@@ -24,6 +24,7 @@ import br.com.tecdainfor.dao.SetorDAO;
 import br.com.tecdainfor.model.Computador;
 import br.com.tecdainfor.model.ResponseModel;
 import br.com.tecdainfor.model.Setor;
+import br.com.tecdainfor.service.ComputadorService;
 
 
 @CrossOrigin
@@ -33,38 +34,21 @@ public class ComputadorController {
 	
 	
 	@Autowired
-	ComputadorDAO computadordao;
+	ComputadorService servico;
 	
 	
 	//Recebimento e tratamento dos dados via HTTP.
 	
-	
 
-
-	/**Paginação**/
-	/*
-	@RequestMapping(method = RequestMethod.GET, produces= MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> list(Pageable pageable){
-		return new ResponseEntity<>(repository.findAll(pageable), HttpStatus.OK);
-	}
-	
-	@RequestMapping(value= "/all", method= RequestMethod.GET, produces= MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> listAll(){
-		return new ResponseEntity<>(repository.findAll(), HttpStatus.OK);
-	}*/
-
-	
-	
-	
 	@RequestMapping(value = "/listar", method= RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public @ResponseBody List<Computador> ConsultarTodos(){
-		List<Computador> lista = this.computadordao.listarComputadores();
+		List<Computador> lista = this.servico.listarComputadores();
 				return 	lista;
 	}
 	
 	@RequestMapping(value = "/listarSetores", method= RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public @ResponseBody List<Setor> ListaSetor(){
-		return 	this.computadordao.listaSetor();
+		return 	this.servico.listaSetor();
 	}
 	
 		
@@ -75,7 +59,7 @@ public class ComputadorController {
         
 	       int idsetor = computador1.getIdrefsetor();
 	       Setor setor = new Setor();
-	       setor = computadordao.consultarSetor(idsetor);
+	       setor = servico.consultarSetor(idsetor);
 	       Computador computador2 = new Computador();
 	       computador2 = computador1;
 	       computador2.setSetor(setor);
@@ -83,7 +67,7 @@ public class ComputadorController {
  
 		try {
             
-			this.computadordao.cadastrarComputador(computador2);
+			this.servico.cadastrarComputador(computador2);
  
 			return new ResponseModel(1,"Registro salvo com sucesso!");
  
@@ -99,7 +83,7 @@ public class ComputadorController {
  
 		   int idsetor = computador1.getIdrefsetor();
 	       Setor setor = new Setor();
-	       setor = computadordao.consultarSetor(idsetor);
+	       setor = servico.consultarSetor(idsetor);
 	       Computador computador2 = new Computador();
 	       computador2 = computador1;
 	       computador2.setSetor(setor);
@@ -107,7 +91,7 @@ public class ComputadorController {
 		
 		try {
  
-			this.computadordao.alterarComputador(computador2);	
+			this.servico.cadastrarComputador(computador2);	
  
 			return new ResponseModel(1,"Registro atualizado com sucesso!");
  
@@ -120,22 +104,21 @@ public class ComputadorController {
 	@RequestMapping(value="/consultar/{id}", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public @ResponseBody Computador buscar(@PathVariable("id") Integer id){
  
-		return this.computadordao.consultarComputador(id);
+		return this.servico.consultarComputador(id);
 	}
  
 	/***
-	 * EXCLUIR UM REGISTRO PELO CÓDIGO
+	 * EXCLUIR UM REGISTRO PELO Cï¿½DIGO
 	 * @param codigo
 	 * @return
 	 */
 	@RequestMapping(value="/excluir/{codigo}", method = RequestMethod.DELETE, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public @ResponseBody ResponseModel excluir(@PathVariable("codigo") Integer codigo){
+	public @ResponseBody ResponseModel excluir(@PathVariable("codigo") int codigo){
  
-		Computador computador = computadordao.consultarComputador(codigo);
- 
+		 
 		try {
  
-			computadordao.excluir(codigo);
+			servico.excluir(codigo);
  
 			return new ResponseModel(1, "Registro excluido com sucesso!");
  

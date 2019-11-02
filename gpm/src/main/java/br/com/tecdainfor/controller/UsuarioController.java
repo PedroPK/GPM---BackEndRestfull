@@ -20,7 +20,7 @@ import br.com.tecdainfor.model.ResponseModel;
 import br.com.tecdainfor.model.Usuario;
 import br.com.tecdainfor.service.UsuarioService;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin
 @RestController
 @RequestMapping("/usuario")
 public class UsuarioController {
@@ -89,7 +89,7 @@ public class UsuarioController {
 
 			this.usuarioService.deleteById(id);
 
-			return new ResponseModel(1, "Registro Excluído com sucesso!");
+			return new ResponseModel(1, "Registro Excluï¿½do com sucesso!");
 
 		} catch (Exception e) {
 
