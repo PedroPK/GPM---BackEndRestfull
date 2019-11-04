@@ -48,7 +48,7 @@ public class Setor implements Serializable {
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "usuariosporsetor", joinColumns = { @JoinColumn(name = "id_setor_pk"), }, inverseJoinColumns = {
 			@JoinColumn(name = "id_usuario_pk") })
-	@Column(name = "listadeusuarios", nullable = false)
+	@Column(name = "listadeusuarios", nullable = true)
 	private Collection<Usuario> listadeusuarios;
 
 	@JsonManagedReference

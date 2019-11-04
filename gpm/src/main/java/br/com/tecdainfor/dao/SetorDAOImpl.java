@@ -56,8 +56,8 @@ public class SetorDAOImpl implements SetorDAO {
 	}
 
 	@Override
+	@javax.transaction.Transactional
 	public Usuario consultarUsuario(int chefeSetorIdRef) {
-		
 		return manager.find(Usuario.class, chefeSetorIdRef);
 	}
 

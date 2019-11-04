@@ -15,6 +15,8 @@ import javax.persistence.ManyToMany;
 
 import javax.persistence.Table;
 
+import org.springframework.stereotype.Component;
+
 // Classe Usuário.
 
 @Entity
@@ -40,22 +42,7 @@ public class Usuario  implements Serializable {
 	@Column(name = "st_matricula")
 	private int matricula;
 	
-	
-
-
-	
-	
-	
-    
-	
-
-	
-	
-	
 	//Gets e Sets da classe usuário.
-	
-
-	
 	
 	
 	public int getId() {

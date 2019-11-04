@@ -5,7 +5,9 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,36 +15,29 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
-import br.com.tecdainfor.dao.UsuarioDAO;
-import br.com.tecdainfor.dao.UsuarioJpaRepository;
-import br.com.tecdainfor.model.Computador;
 import br.com.tecdainfor.model.ResponseModel;
 import br.com.tecdainfor.model.Usuario;
+import br.com.tecdainfor.service.UsuarioService;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin
 @RestController
 @RequestMapping("/usuario")
 public class UsuarioController {
 
-	@Autowired
-	UsuarioDAO usuariodao;
+	
 	private int matricula;
 	private String senha;
+	
 	@Autowired
-	private UsuarioJpaRepository repository;
+	private UsuarioService usuarioService;
 	
 	
-
- 
-
 	// Recebimento e tratamento dos dados via HTTP.
 
 	@RequestMapping(value = "/lista", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public @ResponseBody List<Usuario> ConsultarTodos() {
-		return this.repository.findAll();
+		return this.usuarioService.findAll();
 	}
 
 	@RequestMapping(value = "/cadastrar", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -50,7 +45,7 @@ public class UsuarioController {
 
 		try {
 
-			this.repository.save(usuario);
+			this.usuarioService.save(usuario);
 
 			return new ResponseModel(1, "Registro salvo com sucesso!");
 
@@ -66,7 +61,7 @@ public class UsuarioController {
 		
 		try {
 
-			this.repository.save(usuario);
+			this.usuarioService.save(usuario);
 
 			return new ResponseModel(1, "Registro Atualizado com sucesso!");
 
@@ -83,18 +78,18 @@ public class UsuarioController {
 	public @ResponseBody List<Usuario> consultarUsuarioNome(@PathVariable String nome) {
 		
 	
-			return this.repository.findByName(nome);
+			return this.usuarioService.findByName(nome);
 
 			
 	}
 
 	@RequestMapping(value = "/excluir/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public @ResponseBody ResponseModel excluir(@PathVariable Long id) {
+	public @ResponseBody ResponseModel excluir(@PathVariable int id) {
 		try {
 
-			this.repository.deleteById(id);
+			this.usuarioService.deleteById(id);
 
-			return new ResponseModel(1, "Registro Excluído com sucesso!");
+			return new ResponseModel(1, "Registro Excluï¿½do com sucesso!");
 
 		} catch (Exception e) {
 
@@ -106,9 +101,9 @@ public class UsuarioController {
 	
 
 	@RequestMapping(value = "/consultar/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public @ResponseBody Usuario buscar(@PathVariable("id") Long id) {
+	public @ResponseBody Usuario buscar(@PathVariable("id") int id) {
 
-		return this.repository.getOne(id);
+		return this.usuarioService.getOne(id);
 	}
 
 	@RequestMapping(value = "/autenticarUsuario", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -116,7 +111,7 @@ public class UsuarioController {
 		matricula = usuario.getMatricula();
 		senha = usuario.getSenha();
 
-		return this.repository.autenticarUsuario(matricula, senha);
+		return this.usuarioService.autenticarUsuario(matricula, senha);
 	}
 
 }
